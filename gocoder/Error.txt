@@ -1,0 +1,7 @@
+1. 오류
+    throw new TypeError('Router.use() requires a middleware function but got a ' + gettype(fn))
+        ^
+    TypeError: Router.use() requires a middleware function but got a Object
+
+    => 추가한 mysql.js  파일의 아래부분에 다음 라인 추가.
+    module.exports = router;
