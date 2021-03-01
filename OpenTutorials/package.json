@@ -1,0 +1,15 @@
+{
+  "name": "opentutorials",
+  "version": "1.0.0",
+  "description": "// npm install pm2 -g\r // 아래를 실행시켜 놓으면 프로그램이 변경되더라도 node main.js 와 같이\r // main.js를 재시작 하지 않아도 된다.\r // pm2 start main.js --watch\r // pm2 log          // main.js 상태를 볼 수 있다.\r // pm2 stop main.js // 실행중인 main.js를 멈춘다.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sanitize-html": "^2.3.2"
+  },
+  "devDependencies": {}
+}
