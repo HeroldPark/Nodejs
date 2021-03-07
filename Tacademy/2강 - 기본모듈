@@ -1,0 +1,23 @@
+주요 기본 모듈
+
+프로세스 환경
+os, process, cluster
+
+파일과 경로, URL
+fs, path, URL, querying, stream
+
+네트워트 모듈
+http, https, net, dgram, dns
+
+전역객체(global)
+global.console.log
+env, version, arch, platform
+exit
+beforeExit
+uncaughtException
+process.env
+process.argv
+
+$ node processAdd.js 3 5
+결과
+var i = process.argv[2] => 3
