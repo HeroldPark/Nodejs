@@ -17,20 +17,24 @@ const storage = multer.diskStorage({
         cb(null, file.originalname);
     }
 });
-
-const upload = multer({ storage: storage }).single("avatar");
+// const upload = multer({ storage: storage }).single("avatar");
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-// ROUTES
+// ROUTERS
 
 app.get("/", (req, res) => {
     res.render("index");
 });
 
-app.post("/upload", (req, res) => {
-    upload(req, res, err => {
-        console.log("upload file...", req.file);
+const upload = multer({ dest: 'uploads/', limits: { fileSize: 5 * 1024 * 1024 } });
+app.post('/upload', upload.single('avatar'), (req, res) => {
+  console.log(req.file);
+});
+
+// app.post('/upload', (req, res) => {
+//     upload(req, res, err => {
+//         console.log("upload file...", req.file);
     //     fs.readFile(`./uploads/${req.file.originalname}`, (err, data) => {
     //         if(err) return console.log('This is your error', err);
 
@@ -45,8 +49,8 @@ app.post("/upload", (req, res) => {
     //             })
     //             .finally(() => worker.terminate());
     //     });
-    });
-});
+//     });
+// });
 
 app.get("/download", (req, res) => {
     const file = `${__dirname}/tesseract.js-ocr-result.pdf`;
@@ -57,4 +61,5 @@ app.get("/download", (req, res) => {
 const PORT = 5000 || process.env.PORT;
 app.listen(PORT, () => console.log(`Hey I'm running on port ${PORT}`));
 
-module.exports = app;
+// module.exports = app;
+// module.exports = router;
