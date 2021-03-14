@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const fs = require("fs");
 const multer = require("multer");
-const { createWorker } = require("tesseract.js");
+const { createWorker } = require('tesseract.js');
 const worker = createWorker();
 
 // Storage
@@ -24,25 +24,37 @@ app.get("/", (req, res) => {
     res.render("index");
 });
 
+// app.post('/upload', (req, res) => {
+//     worker.recognize(
+//         req.file,
+//         'eng',
+//         { logger: m => console.log(m) }
+//     ).then(({ data: { text } }) => {
+//         console.log(text);
+//     })
+//     .finally(() => worker.terminate());
+// });
+
 app.post('/upload', (req, res) => {
     upload(req, res, err => {
-        console.log("upload file...", req.file);
         fs.readFile(`./uploads/${req.file.originalname}`, (err, data) => {
             if(err) return console.log('This is your error', err);
+            console.log("upload file...", req.file);
 
             worker
                 .recognize(data, "eng", {tessjs_create_pdf: '1'})
-                .progress(progress => {
-                    console.log(progress);
-                })
-                .then(result => {
-                    //res.send(result.text);
-                    res.redirect('/download');
+                // .progress((p) => { console.log('progress', p)    })
+                .then((result) => {
+                    console.log(result.text);
+                    // res.send(result.text);
+                    // res.redirect('/download');
                 })
                 .finally(() => worker.terminate());
         });
     });
 });
+
+// Tesseract.recognize(myImage).then(function (result) { console.log(result) }) 
 
 app.get("/download", (req, res) => {
     const file = `${__dirname}/tesseract.js-ocr-result.pdf`;
